@@ -18,7 +18,9 @@ const renderText = (
       className={className}
       style={{ fontVariationSettings: `"wght" ${baseWeight}` }}
     >
-      {char === " " ? "\u00A0" : char}
+      {/*{char === " " ? "\u00A0" : char}*/}
+      {/*maybe useful*/}
+      {char}
     </span>
   ));
 };

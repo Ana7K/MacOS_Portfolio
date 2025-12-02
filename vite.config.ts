@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
+console.log(resolve(dirname(fileURLToPath(import.meta.url)), "src/components"));
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],

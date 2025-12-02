@@ -1,7 +1,10 @@
 import dayjs from "dayjs";
-import { navLinks, navIcons } from "#constants/index.ts";
+import { navLinks, navIcons } from "#constants";
+import useWindowStore from "#store/window.ts";
 
 const Navbar = () => {
+  const { openWindow } = useWindowStore();
+
   return (
     <nav>
       {/*navigation links*/}
@@ -9,8 +12,8 @@ const Navbar = () => {
         <img src="/images/logo.svg" alt="logo" />
         <p className="font-bold">macos-portfolio</p>
         <ul>
-          {navLinks.map(({ id, name }) => (
-            <li key={id}>
+          {navLinks.map(({ id, name, type }) => (
+            <li key={id} onClick={() => openWindow(type)}>
               <p>{name}</p>
             </li>
           ))}

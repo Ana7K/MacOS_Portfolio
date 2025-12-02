@@ -13,8 +13,19 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": false,
+    "composite": true,
     "jsx": "react-jsx",
+
+    /* Path aliases */
+    "baseUrl": ".",
+    "paths": {
+      "#components": ["src/components"],
+      "#constants": ["src/constants"],
+      "#store": ["src/store"],
+      "#hoc": ["src/hoc"],
+      "#windows": ["src/windows"]
+    },
 
     /* Linting */
     "strict": true,
