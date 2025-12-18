@@ -1,11 +1,14 @@
 import useWindowStore from "#store/window.ts";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, type ComponentType } from "react";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 import gsap from "gsap";
+import type { WINDOW_CONFIG } from "#constants";
 
-const WindowWrapper = (Component, windowKey) => {
-  const Wrapped = (props) => {
+type WindowKeyType = keyof typeof WINDOW_CONFIG;
+
+const WindowWrapper = (Component: ComponentType, windowKey: WindowKeyType) => {
+  const Wrapped = (props: object) => {
     const { focusWindow, windows } = useWindowStore();
     const { isOpen, zIndex } = windows[windowKey];
     const ref = useRef<HTMLDivElement>(null);
@@ -13,15 +16,31 @@ const WindowWrapper = (Component, windowKey) => {
     // window opening logic
     useGSAP(() => {
       const el = ref.current;
-      if (!el || !isOpen) return;
+      if (!el) return;
 
-      el.style.display = "block";
-
-      gsap.fromTo(
-        el,
-        { scale: 0.8, opacity: 0, y: 40 },
-        { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-      );
+      if (isOpen) {
+        el.style.display = "block";
+        // opening animation
+        gsap.fromTo(
+          el,
+          { scale: 0.8, opacity: 0, y: 40 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "power3.out" },
+        );
+      }
+      // closing animation not working coz every window opens when refreshing
+      // else {
+      //   // closing animation
+      //   gsap.to(el, {
+      //     scale: 0.8,
+      //     opacity: 0,
+      //     y: 40,
+      //     duration: 0.4,
+      //     ease: "power3.in",
+      //     onComplete: () => {
+      //       el.style.display = "none";
+      //     },
+      //   });
+      // }
     }, [isOpen]);
 
     // window dragging logic
@@ -40,7 +59,9 @@ const WindowWrapper = (Component, windowKey) => {
       const el = ref.current;
       if (!el) return;
 
-      el.style.display = isOpen ? "block" : "none";
+      if (!isOpen) {
+        el.style.display = "none";
+      }
     }, [isOpen]);
 
     // higher order component

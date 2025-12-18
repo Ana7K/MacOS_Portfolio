@@ -48,22 +48,28 @@ const Safari = () => {
 
       <div className="blog">
         <h2>My Developer Blog</h2>
-        <div className="space-y-8">
-          {blogPosts.map(({ id, title, date, image, link }) => (
-            <div key={id} className="blog-post">
-              <div className="col-span-2">
-                <img src={image} alt={title} />
+        {blogPosts.length > 0 ? (
+          <div className="space-y-8">
+            {blogPosts.map(({ id, title, date, image, link }) => (
+              <div key={id} className="blog-post">
+                <div className="col-span-2">
+                  <img src={image} alt={title} />
+                </div>
+                <div className="content">
+                  <p>{date}</p>
+                  <h3>{title}</h3>
+                  <a href={link} target="_blank" rel="noopener noreferrer">
+                    Check out the full post <MoveRight className="icon-hover" />
+                  </a>
+                </div>
               </div>
-              <div className="content">
-                <p>{date}</p>
-                <h3>{title}</h3>
-                <a href={link} target="_blank" rel="noopener noreferrer">
-                  Check out the full post <MoveRight className="icon-hover" />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 text-center">
+            No blogs have been posted yet
+          </p>
+        )}
       </div>
     </>
   );

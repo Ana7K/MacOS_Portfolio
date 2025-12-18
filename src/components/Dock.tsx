@@ -55,7 +55,7 @@ const Dock = () => {
     };
   }, []);
 
-  const toggleApp = (app) => {
+  const toggleApp = (app: { id: string; canOpen: boolean }) => {
     // implementing open window logic
     if (!app.canOpen) return;
 
